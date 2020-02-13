@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Controller Unit Test class</Title>
+      <Shortcut>test_controller</Shortcut>
+	  <Description>Code snippet for creating a Unit Test Class for a Controller.</Description>
+	  <Author>Nick Heath</Author>
+    </Header>
+    <Snippet>
+      <Code Language="CSharp">
+        <![CDATA[using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Tapiit.Maritime.BusinessLayer;
+using Tapiit.Maritime.Controllers;
+using Tapiit.Maritime.Models;
+using Xunit;
+using Microsoft.AspNetCore.Mvc;
+using Moq;
+
+namespace $Namespace$.Test.Controllers
+{
+	public class $ControllerName$UnitTests : IDisposable
+	{
+		#region Setup
+
+		public $ControllerName$UnitTests()
+		{
+			$HelperName$ = new Mock<$HelperType$>(MockBehavior.Strict);
+
+			controller = new $ControllerName$($HelperName$.Object);
+		}
+
+		Mock<$HelperType$> $HelperName$ { get; }
+
+		private readonly $ControllerName$ controller;
+
+		public void Dispose()
+		{
+			Dispose(true);
+			GC.SuppressFinalize(this);
+		}
+
+		protected virtual void Dispose(bool disposing)
+		{
+			if (disposing)
+			{
+				$HelperName$.Verify();
+			}
+		}
+
+		#endregion
+
+		#region Constructor
+
+		[Fact]
+		public void Constructor()
+		{
+			// Arrange
+			// Act
+
+			// Assert
+			Assert.NotNull(controller.$HelperName$);
+		}
+
+		#endregion
+	}
+}]]>
+      </Code>
+      <Declarations>
+	    <Literal>
+	      <ID>Namespace</ID>
+	      <ToolTip>The namespace of the class.</ToolTip>		
+		  <Default>ProjectNamespace</Default>
+	    </Literal>
+		<Literal>
+	      <ID>ControllerName</ID>
+	      <ToolTip>The name of the controller under test.</ToolTip>		
+		  <Default>MyController</Default>
+	    </Literal>
+	    <Literal>
+	      <ID>HelperName</ID>
+	      <ToolTip>The name of the primary helper class.</ToolTip>		
+		  <Default>MyHelper</Default>
+	    </Literal>
+		<Object>
+		  <ID>HelperType</ID>
+		  <Type>Interface</Type>
+		  <Default>IHelperType</Default>
+		</Object>
+      </Declarations>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>
