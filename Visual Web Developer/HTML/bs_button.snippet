@@ -1,0 +1,28 @@
+<CodeSnippet Format="1.1.0" xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <Header>
+    <Title>Bootstrap Button</Title>
+    <Author>Nick Heath</Author>
+    <Shortcut>btn</Shortcut>
+    <Description>Bootstrap Button</Description>
+    <SnippetTypes>
+      <SnippetType>Expansion</SnippetType>
+    </SnippetTypes>
+  </Header>
+  <Snippet>
+    <Declarations>
+      <Literal>
+        <ID>Class</ID>
+        <ToolTip>The contextual class of the Button</ToolTip>
+        <Default>success</Default>
+      </Literal>
+	  <Literal>
+        <ID>Text</ID>
+        <ToolTip>The text content of the Button</ToolTip>
+        <Default>Content</Default>
+      </Literal>
+    </Declarations>
+    <Code Language="HTML">
+	  <![CDATA[<button type="button" class="btn btn-$Class$">$Text$</button>]]>
+    </Code>
+  </Snippet>
+</CodeSnippet>
