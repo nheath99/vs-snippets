@@ -1,0 +1,27 @@
+<CodeSnippet Format="1.1.0" xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <Header>
+    <Title>Bootstrap Alert</Title>
+    <Author>Nick Heath</Author>
+    <Shortcut>alert</Shortcut>
+    <Description>Bootstrap Alert</Description>
+    <SnippetTypes>
+      <SnippetType>Expansion</SnippetType>
+      <SnippetType>SurroundsWith</SnippetType>
+    </SnippetTypes>
+  </Header>
+  <Snippet>
+    <Declarations>
+      <Literal>
+        <ID>Class</ID>
+        <ToolTip>The contextual class of the Alert</ToolTip>
+        <Default>success</Default>
+      </Literal>
+    </Declarations>
+          <Code Language="HTML">
+        <![CDATA[<div class="alert alert-$Class$" role="alert">
+  <h4 class="alert-heading"></h4>  
+  <p class="mb-0"></p>
+</div>]]>
+      </Code>
+  </Snippet>
+</CodeSnippet>
