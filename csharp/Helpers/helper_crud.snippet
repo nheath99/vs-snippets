@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Helper Class</Title>
+      <Shortcut>helper_crud</Shortcut>
+	  <Description>Code snippet for creating a helper class with CRUD methods.</Description>
+	  <Author>Nick Heath</Author>
+    </Header>
+    <Snippet>
+      <Code Language="CSharp">
+        <![CDATA[using Serilog;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using $Namespace$.Data;
+
+namespace $Namespace$.BusinessLayer
+{
+	public class $HelperName$
+	{
+		public $HelperName$($RepositoryType$ repository)
+		{
+			$Repository$ = repository;
+		}
+
+		internal $RepositoryType$ $Repository$ { get; }
+
+		public async Task<IEnumerable<$ObjectType$>> ListAsync(bool onlyActive = true)
+		{
+			try
+			{
+				return await $Repository$.ListAsync(onlyActive);
+			}
+			catch (Exception ex)
+			{
+				Log.Error(ex, ex.Message);
+				return Enumerable.Empty<$ObjectType$>();
+			}
+		}
+
+		public async Task<$ObjectType$> FindAsync(int id)
+		{
+			try
+			{
+				return await $Repository$.FindAsync(id);
+			}
+			catch (Exception ex)
+			{
+				Log.Error(ex, ex.Message);
+				return null;
+			}
+		}
+
+		public async Task<$ObjectType$> GetAsync(int id)
+		{
+			$ObjectType$ item = null;
+			try
+			{
+				item = await $Repository$.FindAsync(id);
+			}
+			catch (Exception ex)
+			{
+				Log.Error(ex, ex.Message);				
+			}
+			
+			return item;
+		}
+
+		public async Task<int?> InsertAsync($ObjectType$ item)
+		{
+			try
+			{
+				return await $Repository$.InsertAsync(item);
+			}
+			catch (Exception ex)
+			{
+				Log.Error(ex, ex.Message);
+				return null;
+			}
+		}
+
+		public async Task UpdateAsync($ObjectType$ item)
+		{
+			try
+			{
+				await $Repository$.UpdateAsync(item);
+			}
+			catch (Exception ex)
+			{
+				Log.Error(ex, ex.Message);
+			}
+		}
+	}
+}]]>
+      </Code>
+      <Declarations>
+	    <Literal>
+	      <ID>Namespace</ID>
+	      <ToolTip>The namespace of the controller.</ToolTip>		
+		  <Default>ProjectNamespace</Default>
+	    </Literal>
+		<Literal>
+	      <ID>Repository</ID>
+	      <ToolTip>The name of the repository.</ToolTip>		
+		  <Default>MyRepository</Default>
+	    </Literal>
+	    <Literal>
+	      <ID>HelperName</ID>
+	      <ToolTip>The name of the helper.</ToolTip>		
+		  <Default>MyHelper</Default>
+	    </Literal>
+		<Object>
+		  <ID>RepositoryType</ID>
+		  <Type>Interface</Type>
+		  <Default>IRepository</Default>
+		</Object>
+		<Object>
+		  <ID>ObjectType</ID>
+		  <Type>Class</Type>
+		  <Default>MyObject</Default>
+		</Object>
+      </Declarations>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>
