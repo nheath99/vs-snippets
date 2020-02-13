@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Controller - Logged In</Title>
+      <Shortcut>controller_loggedin</Shortcut>
+	  <Description>Code snippet for creating a Controller that inherits from LoggedInControllerBase, with standard CRUD actions.</Description>
+	  <Author>Nick Heath</Author>
+    </Header>
+    <Snippet>
+      <Code Language="CSharp">
+        <![CDATA[using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using $Namespace$.BusinessLayer;
+using $Namespace$.Models;
+
+namespace $Namespace$.Controllers
+{
+	[Route("[controller]")]
+	public class $ControllerName$Controller : LoggedInControllerBase
+	{
+		public $ControllerName$Controller($HelperType$ helper, IUserClaimIds userClaimIds, IConfiguration configuration)
+			: base(userClaimIds, configuration)
+		{
+			$HelperName$ = helper;
+		}
+
+		internal $HelperType$ $HelperName$ { get; set; }
+
+		[Route("", Name = RouteNames.$ControllerName$_Index)]
+		public async Task<IActionResult> Index()
+		{
+			var items = await $HelperName$.ListAsync();
+
+			var model = items.Select(x => new $ControllerName$ListViewModel(x));
+
+			return View(model);
+		}
+
+		[Route("{id:int}", Name = RouteNames.$ControllerName$_Details)]
+		public async Task<IActionResult> Details(int id)
+		{
+			var item = await $HelperName$.FindAsync(id);
+			if (item == null)
+				return NotFound();
+
+			var model = new $ControllerName$DetailsViewModel(item);
+
+			return View(model);
+		}
+
+		[Route("Create", Name = RouteNames.$ControllerName$_Create)]
+		public IActionResult Create()
+		{
+			return View();
+		}
+
+		[HttpPost("Create", Name = RouteNames.$ControllerName$_Create), ValidateAntiForgeryToken]
+		public async Task<IActionResult> Create(Create$ControllerName$ViewModel model)
+		{
+			if (ModelState.IsValid)
+			{
+				var item = new $ControllerName$()
+				{
+					// TODO: update properties from model
+				};
+
+				var id = await $HelperName$.InsertAsync(item);
+				if (id.HasValue)
+					return RedirectToAction("Details", new { id });
+				else
+					ModelState.AddModelError(string.Empty, "Database error");
+			}
+
+			return View(model);
+		}
+
+		[Route("{id:int}/Edit", Name = RouteNames.$ControllerName$_Edit)]
+		public async Task<IActionResult> Edit(int id)
+		{
+			var item = await $HelperName$.FindAsync(id);
+			if (item == null)
+				return NotFound();
+
+			var model = new Edit$ControllerName$ViewModel(item);
+
+			return View(model);
+		}
+
+		[HttpPost("{id:int}/Edit", Name = RouteNames.$ControllerName$_Edit)]
+		public async Task<IActionResult> Edit(Edit$ControllerName$ViewModel model)
+		{
+			if (ModelState.IsValid)
+			{
+				var item = await $HelperName$.FindAsync(model.Id);
+				if (item == null)
+					return NotFound();
+
+				// TODO: update properties from model
+
+				await $HelperName$.UpdateAsync(item);
+
+				return RedirectToAction("Details", new { id = item.Id });
+			}
+
+			return View(model);
+		}
+	}
+}]]>
+      </Code>
+      <Declarations>
+	    <Literal>
+	      <ID>Namespace</ID>
+	      <ToolTip>The namespace of the controller.</ToolTip>		
+		  <Default>ProjectNamespace</Default>
+	    </Literal>
+		<Literal>
+	      <ID>ControllerName</ID>
+	      <ToolTip>The name of the controller.</ToolTip>		
+		  <Default>MyController</Default>
+	    </Literal>
+	    <Literal>
+	      <ID>HelperName</ID>
+	      <ToolTip>The name of the helper.</ToolTip>		
+		  <Default>MyHelper</Default>
+	    </Literal>
+		<Object>
+		  <ID>HelperType</ID>
+		  <Type>Interface</Type>
+		  <Default>IHelperType</Default>
+		</Object>
+      </Declarations>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>
