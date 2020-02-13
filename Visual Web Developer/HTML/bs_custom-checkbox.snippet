@@ -1,0 +1,31 @@
+<CodeSnippet Format="1.1.0" xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <Header>
+    <Title>Bootstrap Custom Checkbox</Title>
+    <Author>Nick Heath</Author>
+    <Shortcut>customcheckbox</Shortcut>
+    <Description>Bootstrap Custom Checkbox</Description>
+    <SnippetTypes>
+      <SnippetType>Expansion</SnippetType>
+    </SnippetTypes>
+  </Header>
+  <Snippet>
+    <Declarations>
+      <Literal>
+        <ID>Name</ID>
+        <ToolTip>The name of the model</ToolTip>
+        <Default>name</Default>
+      </Literal>
+	  <Literal>
+        <ID>Text</ID>
+        <ToolTip>The label content</ToolTip>
+        <Default>Placeholder</Default>
+      </Literal>
+    </Declarations>
+    <Code Language="HTML">
+	  <![CDATA[<div class="custom-control custom-checkbox">
+  <input asp-for="$Name$" class="custom-control-input" />
+  <label asp-for="$Name$" class="custom-control-label">$Text$</label>
+</div>]]>
+    </Code>
+  </Snippet>
+</CodeSnippet>
