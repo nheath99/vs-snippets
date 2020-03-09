@@ -58,7 +58,7 @@ namespace $Namespace$.BusinessLayer
 			$ObjectType$ item = null;
 			try
 			{
-				item = await $Repository$.FindAsync(id);
+				item = await $Repository$.GetAsync(id);
 			}
 			catch (Exception ex)
 			{
