@@ -18,7 +18,10 @@ namespace $Namespace$.Data
 {
 	public class $RepositoryName$Repository : LoggedInRepository
 	{
-		public $RepositoryName$Repository(IConfiguration configuration, IUserClaimIds userClaims, IDataCache cache) : base(configuration, userClaims, cache) { }
+		public $RepositoryName$Repository(IConfiguration configuration, IUserClaimIds userClaims, IDataCache cache)
+			: base(configuration, userClaims, cache)
+		{
+		}
 
 		public async Task<IEnumerable<$ObjectType$>> ListAsync()
 		{
